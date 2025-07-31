@@ -14,16 +14,40 @@ A FastAPI web application that converts multiple PDF files to text files with sa
 
 ## Installation
 
+### Option 1: Local Installation
+
 1. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
+### Option 2: Docker Installation
+
+1. Build and run with Docker Compose (recommended):
+```bash
+docker-compose up --build
+```
+
+2. Or build and run with Docker directly:
+```bash
+docker build -t pdf-to-text .
+docker run -p 8000:8000 -v $(pwd)/converted:/app/converted pdf-to-text
+```
+
 ## Usage
+
+### Local Usage
 
 1. Start the FastAPI server:
 ```bash
 python main.py
+```
+
+### Docker Usage
+
+1. Start with Docker Compose:
+```bash
+docker-compose up
 ```
 
 2. Open your web browser and navigate to:

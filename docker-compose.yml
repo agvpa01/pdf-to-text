@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  pdf-to-text:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./converted:/app/converted
+      - ./uploads:/app/uploads
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    container_name: pdf-to-text-converter
