@@ -1,118 +1,86 @@
-# PDF to Text Converter Web Application
+# PDF to Text Converter
 
-A modern web application that allows users to upload multiple PDF files and convert them to text format with sanitized filenames.
+A FastAPI web application that converts multiple PDF files to text files with sanitized filenames.
 
 ## Features
 
-- **Multiple File Upload**: Upload multiple PDF files at once
-- **Drag & Drop Interface**: Intuitive drag and drop functionality
-- **File Name Sanitization**: Converts filenames to `word_word_word` format with underscores
-- **Progress Tracking**: Real-time conversion progress display
-- **Individual Downloads**: Download each converted file separately
-- **Batch Download**: Download all converted files at once
-- **Error Handling**: Comprehensive error handling and user feedback
-- **Responsive Design**: Works on desktop and mobile devices
-
-## Requirements
-
-- Python 3.7 or higher
-- pip (Python package installer)
+- Upload multiple PDF files simultaneously
+- Drag and drop file upload interface
+- Convert PDF files to text format
+- Sanitized filenames (word_word_word format with underscores)
+- Download individual converted files
+- Download all converted files as a ZIP archive
+- Modern, responsive web interface
 
 ## Installation
 
-1. **Clone or download the project files**
-
-2. **Install Python dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+1. Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
-1. **Start the server**:
-   ```bash
-   python app.py
-   ```
-
-2. **Open your web browser** and navigate to:
-   ```
-   http://localhost:5000
-   ```
-
-3. **Upload PDF files**:
-   - Click "Browse Files" or drag and drop PDF files onto the upload area
-   - Multiple files can be selected at once
-
-4. **Convert files**:
-   - Click "Convert to Text" to start the conversion process
-   - Monitor the progress bar for conversion status
-
-5. **Download converted files**:
-   - Download individual files using the "Download" button
-   - Or download all successful conversions using "Download All"
-
-## File Name Sanitization
-
-The application automatically sanitizes PDF filenames according to these rules:
-- Converts to lowercase
-- Replaces spaces and special characters with underscores
-- Removes consecutive underscores
-- Removes leading/trailing underscores
-- Example: `My Document (2023).pdf` → `my_document_2023.txt`
-
-## Technical Details
-
-### Backend (Python Flask)
-- **Framework**: Flask with CORS support
-- **PDF Processing**: PyPDF2 library for text extraction
-- **File Handling**: Secure file upload with size and type validation
-- **Error Handling**: Comprehensive error handling and logging
-
-### Frontend (HTML/CSS/JavaScript)
-- **Modern UI**: Responsive design with gradient backgrounds
-- **File Management**: Drag & drop interface with file preview
-- **Progress Tracking**: Real-time conversion progress
-- **Download Management**: Individual and batch download options
-
-### API Endpoints
-- `GET /` - Serve the main application
-- `POST /convert` - Convert PDF to text
-- `GET /health` - Health check endpoint
-
-## File Limitations
-
-- **Maximum file size**: 16MB per PDF
-- **Supported format**: PDF files only
-- **Text extraction**: Works best with text-based PDFs (not scanned images)
-
-## Troubleshooting
-
-### Common Issues
-
-1. **"No text could be extracted"**:
-   - The PDF might be image-based or scanned
-   - Try with a different PDF that contains selectable text
-
-2. **"File too large"**:
-   - Reduce the PDF file size or split large documents
-
-3. **Server not starting**:
-   - Ensure all dependencies are installed: `pip install -r requirements.txt`
-   - Check if port 5000 is available
-
-4. **Conversion fails**:
-   - Check the browser console for error messages
-   - Ensure the PDF file is not corrupted
-
-## Development
-
-To run in development mode:
+1. Start the FastAPI server:
 ```bash
-python app.py
+python main.py
 ```
 
-The server will start with debug mode enabled and auto-reload on file changes.
+2. Open your web browser and navigate to:
+```
+http://localhost:8000
+```
 
-## License
+3. Upload your PDF files using the web interface:
+   - Drag and drop PDF files onto the upload area, or
+   - Click "Select PDF Files" to browse and select files
 
-This project is open source and available under the MIT License.
+4. Click "Convert to Text" to process the files
+
+5. Download the converted text files individually or as a ZIP archive
+
+## File Naming Convention
+
+The application automatically sanitizes PDF filenames by:
+- Removing special characters
+- Converting spaces to underscores
+- Converting to lowercase
+- Format: `word_word_word.txt`
+
+Example:
+- `My Document (2023).pdf` → `my_document_2023.txt`
+- `Report #1 - Final.pdf` → `report_1_final.txt`
+
+## API Endpoints
+
+- `GET /` - Main web interface
+- `POST /convert` - Convert PDF files to text
+- `GET /download/{filename}` - Download individual text file
+- `GET /download-all` - Download all converted files as ZIP
+
+## Directory Structure
+
+```
+project-pdf-to-text/
+├── main.py              # Main FastAPI application
+├── requirements.txt     # Python dependencies
+├── README.md           # This file
+├── uploads/            # Temporary PDF storage (auto-created)
+├── converted/          # Converted text files (auto-created)
+└── static/             # Static files (auto-created)
+```
+
+## Requirements
+
+- Python 3.7+
+- FastAPI
+- PyPDF2
+- Uvicorn
+- python-multipart
+- aiofiles
+
+## Notes
+
+- Uploaded PDF files are temporarily stored and automatically deleted after conversion
+- Converted text files are stored in the `converted/` directory
+- The application creates necessary directories automatically on startup
